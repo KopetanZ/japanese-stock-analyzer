@@ -46,6 +46,13 @@ type FeatureVector = {
   momentum5: number;
   momentum25: number;
 };
+
+type RealTimePrice = {
+  current: number;
+  change: number;
+  changePercent: number;
+  volume: number;
+};
 // 🔼 型定義ここまで
 
 const JapaneseGrowthStockAnalyzer = () => {
@@ -56,7 +63,7 @@ const JapaneseGrowthStockAnalyzer = () => {
   const [advancedIndicators, setAdvancedIndicators] = useState({});
   const [mlPrediction, setMlPrediction] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [realTimePrice, setRealTimePrice] = useState(null);
+  const [realTimePrice, setRealTimePrice] = useState<RealTimePrice | null>(null);
   const [volatilityAnalysis, setVolatilityAnalysis] = useState({});
 
   // 日本のグロース株銘柄
