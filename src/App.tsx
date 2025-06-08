@@ -47,6 +47,24 @@ type FeatureVector = {
   momentum25: number;
 };
 
+type TechnicalIndicators = {
+  sma5: string;
+  sma25: string;
+  sma75: string;
+  ema12: string;
+  ema26: string;
+  macd: string;
+  rsi: string;
+  stochK: string;
+  williamsR: string;
+  atr: string;
+  bollingerUpper: string;
+  bollingerLower: string;
+  bollingerWidth: string;
+  volumeRatio: string;
+  avgVolume: string;
+};
+
 type RealTimePrice = {
   current: number;
   change: number;
@@ -59,9 +77,9 @@ const JapaneseGrowthStockAnalyzer = () => {
   const [selectedStock, setSelectedStock] = useState('6178');
   const [signals, setSignals] = useState<Signal[]>([]);
   const [chartData, setChartData] = useState<StockData[]>([]);
-  const [technicalIndicators, setTechnicalIndicators] = useState({});
+  const [technicalIndicators, setTechnicalIndicators] = useState<TechnicalIndicators | null>(null);
   const [advancedIndicators, setAdvancedIndicators] = useState({});
-  const [mlPrediction, setMlPrediction] = useState(null);
+  const [mlPrediction, setMlPrediction] = useState<MLResult | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [realTimePrice, setRealTimePrice] = useState<RealTimePrice | null>(null);
   const [volatilityAnalysis, setVolatilityAnalysis] = useState({});
