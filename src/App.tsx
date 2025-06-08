@@ -57,8 +57,8 @@ type RealTimePrice = {
 
 const JapaneseGrowthStockAnalyzer = () => {
   const [selectedStock, setSelectedStock] = useState('6178');
-  const [signals, setSignals] = useState([]);
-  const [chartData, setChartData] = useState([]);
+  const [signals, setSignals] = useState<Signal[]>([]);
+  const [chartData, setChartData] = useState<StockData[]>([]);
   const [technicalIndicators, setTechnicalIndicators] = useState({});
   const [advancedIndicators, setAdvancedIndicators] = useState({});
   const [mlPrediction, setMlPrediction] = useState(null);
