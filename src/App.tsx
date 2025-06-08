@@ -2,6 +2,41 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area, BarChart, Bar } from 'recharts';
 import { TrendingUp, TrendingDown, AlertTriangle, Bell, BarChart3, Brain, Activity, Zap, Target, Eye, Cpu } from 'lucide-react';
 
+// 🔽 ここから型定義を追加
+type StockData = {
+  date: string;
+  price: number;
+  volume: number;
+  high: number;
+  low: number;
+  open: number;
+  change: number;
+};
+
+type MLResult = {
+  prediction: 'BUY' | 'SELL' | 'HOLD';
+  confidence: string;
+  ensembleScore: string;
+  modelScores: {
+    neuralNetwork: string;
+    randomForest: string;
+    gradientBoosting: string;
+  };
+  features: Record<string, number>;
+  riskLevel: string;
+};
+
+type Signal = {
+  type: string;
+  source: string;
+  indicator: string;
+  message: string;
+  strength: string;
+  confidence: number;
+  timestamp: string;
+};
+// 🔼 型定義ここまで
+
 const JapaneseGrowthStockAnalyzer = () => {
   const [selectedStock, setSelectedStock] = useState('6178');
   const [signals, setSignals] = useState([]);
@@ -109,7 +144,7 @@ const JapaneseGrowthStockAnalyzer = () => {
       const lows = prices.low;
       const closes = prices.close;
       
-      const data = timestamps.map((timestamp, i) => {
+      const data = timestamps.map((timestamp: number, i: number) => {
         const date = new Date(timestamp * 1000);
         const price = closes[i];
         const prevPrice = i > 0 ? closes[i - 1] : price;
@@ -168,7 +203,7 @@ const JapaneseGrowthStockAnalyzer = () => {
   }, []);
 
   // 高度なテクニカル指標計算
-  const calculateAdvancedTechnicalIndicators = useCallback((data) => {
+  const calculateAdvancedTechnicalIndicators = useCallback((data: StockData[]): Record<string, string> => {
     if (data.length < 50) return {};
 
     const prices = data.map(d => d.price);
@@ -416,7 +451,7 @@ const JapaneseGrowthStockAnalyzer = () => {
   }, []);
 
   // 高度なシグナル生成
-  const generateAdvancedSignals = useCallback((data, indicators, mlResult) => {
+  const generateAdvancedSignals = useCallback((data: StockData[], indicators: Record<string, string>, mlResult: MLResult): Signal[] => {
     const signals = [];
     const currentPrice = data[data.length - 1].price;
     const prevPrice = data[data.length - 2]?.price || currentPrice;
@@ -581,7 +616,7 @@ const JapaneseGrowthStockAnalyzer = () => {
     return () => clearInterval(interval);
   }, [analyzeStock, isAnalyzing]);
 
-  const getSignalColor = (type) => {
+  const getSignalColor = (type: Signal['type']) => {
     switch(type) {
       case 'BUY': return 'text-green-600 bg-green-50 border-green-200';
       case 'SELL': return 'text-red-600 bg-red-50 border-red-200';
@@ -590,7 +625,7 @@ const JapaneseGrowthStockAnalyzer = () => {
     }
   };
 
-  const getStrengthIcon = (strength) => {
+  const getStrengthIcon = (strength: Signal['strength']) => {
     switch(strength) {
       case 'Very Strong': return <Zap className="w-4 h-4 text-green-500" />;
       case 'Strong': return <TrendingUp className="w-4 h-4 text-blue-500" />;
