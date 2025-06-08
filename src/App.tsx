@@ -825,86 +825,94 @@ const JapaneseGrowthStockAnalyzer = () => {
                 <Target className="w-5 h-5 text-cyan-400" />
                 高度テクニカル指標
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-slate-700/50 rounded-lg p-4">
-                  <div className="text-sm text-slate-400">RSI (14)</div>
-                  <div className={`text-xl font-bold ${
-                    parseFloat(technicalIndicators.rsi) < 30 ? 'text-green-400' :
-                    parseFloat(technicalIndicators.rsi) > 70 ? 'text-red-400' : 'text-blue-400'
-                  }`}>
-                    {technicalIndicators.rsi}
+              {technicalIndicators ? (
+                <>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="bg-slate-700/50 rounded-lg p-4">
+                      <div className="text-sm text-slate-400">RSI (14)</div>
+                      <div className={`text-xl font-bold ${
+                        parseFloat(technicalIndicators.rsi) < 30 ? 'text-green-400' :
+                        parseFloat(technicalIndicators.rsi) > 70 ? 'text-red-400' : 'text-blue-400'
+                      }`}>
+                        {technicalIndicators.rsi}
+                      </div>
+                    </div>
+                    <div className="bg-slate-700/50 rounded-lg p-4">
+                      <div className="text-sm text-slate-400">MACD</div>
+                      <div className={`text-xl font-bold ${
+                        parseFloat(technicalIndicators.macd) > 0 ? 'text-green-400' : 'text-red-400'
+                      }`}>
+                        {technicalIndicators.macd}
+                      </div>
+                    </div>
+                    <div className="bg-slate-700/50 rounded-lg p-4">
+                      <div className="text-sm text-slate-400">Stoch %K</div>
+                      <div className={`text-xl font-bold ${
+                        parseFloat(technicalIndicators.stochK) < 20 ? 'text-green-400' :
+                        parseFloat(technicalIndicators.stochK) > 80 ? 'text-red-400' : 'text-purple-400'
+                      }`}>
+                        {technicalIndicators.stochK}%
+                      </div>
+                    </div>
+                    <div className="bg-slate-700/50 rounded-lg p-4">
+                      <div className="text-sm text-slate-400">Williams %R</div>
+                      <div className={`text-xl font-bold ${
+                        parseFloat(technicalIndicators.williamsR) < -80 ? 'text-green-400' :
+                        parseFloat(technicalIndicators.williamsR) > -20 ? 'text-red-400' : 'text-yellow-400'
+                      }`}>
+                        {technicalIndicators.williamsR}%
+                      </div>
+                    </div>
+                    <div className="bg-slate-700/50 rounded-lg p-4">
+                      <div className="text-sm text-slate-400">ATR</div>
+                      <div className="text-xl font-bold text-orange-400">¥{technicalIndicators.atr}</div>
+                    </div>
+                    <div className="bg-slate-700/50 rounded-lg p-4">
+                      <div className="text-sm text-slate-400">ボリ幅</div>
+                      <div className="text-xl font-bold text-pink-400">{technicalIndicators.bollingerWidth}%</div>
+                    </div>
+                    <div className="bg-slate-700/50 rounded-lg p-4">
+                      <div className="text-sm text-slate-400">出来高比</div>
+                      <div className={`text-xl font-bold ${
+                        parseFloat(technicalIndicators.volumeRatio) > 1.5 ? 'text-green-400' : 'text-slate-400'
+                      }`}>
+                        {technicalIndicators.volumeRatio}x
+                      </div>
+                    </div>
+                    <div className="bg-slate-700/50 rounded-lg p-4">
+                      <div className="text-sm text-slate-400">平均出来高</div>
+                      <div className="text-xl font-bold text-cyan-400">{technicalIndicators.avgVolume}</div>
+                    </div>
                   </div>
-                </div>
-                <div className="bg-slate-700/50 rounded-lg p-4">
-                  <div className="text-sm text-slate-400">MACD</div>
-                  <div className={`text-xl font-bold ${
-                    parseFloat(technicalIndicators.macd) > 0 ? 'text-green-400' : 'text-red-400'
-                  }`}>
-                    {technicalIndicators.macd}
-                  </div>
-                </div>
-                <div className="bg-slate-700/50 rounded-lg p-4">
-                  <div className="text-sm text-slate-400">Stoch %K</div>
-                  <div className={`text-xl font-bold ${
-                    parseFloat(technicalIndicators.stochK) < 20 ? 'text-green-400' :
-                    parseFloat(technicalIndicators.stochK) > 80 ? 'text-red-400' : 'text-purple-400'
-                  }`}>
-                    {technicalIndicators.stochK}%
-                  </div>
-                </div>
-                <div className="bg-slate-700/50 rounded-lg p-4">
-                  <div className="text-sm text-slate-400">Williams %R</div>
-                  <div className={`text-xl font-bold ${
-                    parseFloat(technicalIndicators.williamsR) < -80 ? 'text-green-400' :
-                    parseFloat(technicalIndicators.williamsR) > -20 ? 'text-red-400' : 'text-yellow-400'
-                  }`}>
-                    {technicalIndicators.williamsR}%
-                  </div>
-                </div>
-                <div className="bg-slate-700/50 rounded-lg p-4">
-                  <div className="text-sm text-slate-400">ATR</div>
-                  <div className="text-xl font-bold text-orange-400">¥{technicalIndicators.atr}</div>
-                </div>
-                <div className="bg-slate-700/50 rounded-lg p-4">
-                  <div className="text-sm text-slate-400">ボリ幅</div>
-                  <div className="text-xl font-bold text-pink-400">{technicalIndicators.bollingerWidth}%</div>
-                </div>
-                <div className="bg-slate-700/50 rounded-lg p-4">
-                  <div className="text-sm text-slate-400">出来高比</div>
-                  <div className={`text-xl font-bold ${
-                    parseFloat(technicalIndicators.volumeRatio) > 1.5 ? 'text-green-400' : 'text-slate-400'
-                  }`}>
-                    {technicalIndicators.volumeRatio}x
-                  </div>
-                </div>
-                <div className="bg-slate-700/50 rounded-lg p-4">
-                  <div className="text-sm text-slate-400">平均出来高</div>
-                  <div className="text-xl font-bold text-cyan-400">{technicalIndicators.avgVolume}</div>
-                </div>
-              </div>
 
-              {/* 移動平均線 */}
-              <div className="mt-6">
-                <h3 className="text-lg font-semibold mb-3">移動平均線</h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="bg-slate-700/50 rounded-lg p-4">
-                    <div className="text-sm text-slate-400">SMA5</div>
-                    <div className="text-xl font-bold text-green-400">¥{technicalIndicators.sma5}</div>
+                  {/* 移動平均線 */}
+                  <div className="mt-6">
+                    <h3 className="text-lg font-semibold mb-3">移動平均線</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div className="bg-slate-700/50 rounded-lg p-4">
+                        <div className="text-sm text-slate-400">SMA5</div>
+                        <div className="text-xl font-bold text-green-400">¥{technicalIndicators.sma5}</div>
+                      </div>
+                      <div className="bg-slate-700/50 rounded-lg p-4">
+                        <div className="text-sm text-slate-400">SMA25</div>
+                        <div className="text-xl font-bold text-blue-400">¥{technicalIndicators.sma25}</div>
+                      </div>
+                      <div className="bg-slate-700/50 rounded-lg p-4">
+                        <div className="text-sm text-slate-400">SMA75</div>
+                        <div className="text-xl font-bold text-purple-400">¥{technicalIndicators.sma75}</div>
+                      </div>
+                      <div className="bg-slate-700/50 rounded-lg p-4">
+                        <div className="text-sm text-slate-400">EMA12</div>
+                        <div className="text-xl font-bold text-yellow-400">¥{technicalIndicators.ema12}</div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="bg-slate-700/50 rounded-lg p-4">
-                    <div className="text-sm text-slate-400">SMA25</div>
-                    <div className="text-xl font-bold text-blue-400">¥{technicalIndicators.sma25}</div>
-                  </div>
-                  <div className="bg-slate-700/50 rounded-lg p-4">
-                    <div className="text-sm text-slate-400">SMA75</div>
-                    <div className="text-xl font-bold text-purple-400">¥{technicalIndicators.sma75}</div>
-                  </div>
-                  <div className="bg-slate-700/50 rounded-lg p-4">
-                    <div className="text-sm text-slate-400">EMA12</div>
-                    <div className="text-xl font-bold text-yellow-400">¥{technicalIndicators.ema12}</div>
-                  </div>
+                </>
+              ) : (
+                <div className="text-center text-slate-400 py-8">
+                  <div className="animate-pulse">テクニカル指標を読み込み中...</div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
 
@@ -916,7 +924,7 @@ const JapaneseGrowthStockAnalyzer = () => {
                 <Cpu className="w-5 h-5 text-purple-400" />
                 アンサンブルAI予測
               </h2>
-              {mlPrediction && (
+              {mlPrediction ? (
                 <div className="space-y-4">
                   <div className={`p-4 rounded-lg border-2 ${
                     mlPrediction.prediction === 'BUY' ? 'bg-green-900/30 border-green-500' :
@@ -962,6 +970,10 @@ const JapaneseGrowthStockAnalyzer = () => {
                     </div>
                   </div>
                 </div>
+              ) : (
+                <div className="text-center text-slate-400 py-8">
+                  <div className="animate-pulse">AI予測を計算中...</div>
+                </div>
               )}
             </div>
 
@@ -971,7 +983,7 @@ const JapaneseGrowthStockAnalyzer = () => {
                 <Activity className="w-5 h-5 text-red-400" />
                 ボラティリティ分析
               </h2>
-              {volatilityAnalysis.dailyVol && (
+              {volatilityAnalysis.dailyVol ? (
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 gap-3">
                     <div className="bg-slate-700/50 rounded-lg p-4">
@@ -992,6 +1004,10 @@ const JapaneseGrowthStockAnalyzer = () => {
                       </div>
                     </div>
                   </div>
+                </div>
+              ) : (
+                <div className="text-center text-slate-400 py-8">
+                  <div className="animate-pulse">ボラティリティを計算中...</div>
                 </div>
               )}
             </div>
@@ -1080,6 +1096,5 @@ const JapaneseGrowthStockAnalyzer = () => {
       </div>
     </div>
   );
-};
 
 export default JapaneseGrowthStockAnalyzer;
