@@ -168,7 +168,7 @@ const JapaneseGrowthStockAnalyzer = () => {
       // APIエラー時のフォールバック（シミュレートデータ）
       console.log('Falling back to simulated data...');
       const basePrice = Math.random() * 3000 + 500;
-      const data = [];
+      const data: StockData[] = [];
       let currentPrice = basePrice;
       
       for (let i = 0; i < 100; i++) {
