@@ -1096,5 +1096,5 @@ const JapaneseGrowthStockAnalyzer = () => {
       </div>
     </div>
   );
-
+};
 export default JapaneseGrowthStockAnalyzer;
