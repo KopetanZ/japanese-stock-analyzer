@@ -989,7 +989,8 @@ const JapaneseGrowthStockAnalyzer = () => {
                 <Activity className="w-5 h-5 text-red-400" />
                 ボラティリティ分析
               </h2>
-              {volatilityAnalysis.dailyVol ? (
+              {volatilityAnalysis?.dailyVol ? (
+//              {volatilityAnalysis.dailyVol ? (
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 gap-3">
                     <div className="bg-slate-700/50 rounded-lg p-4">
