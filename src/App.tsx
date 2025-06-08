@@ -597,6 +597,7 @@ const JapaneseGrowthStockAnalyzer = () => {
       
       const data = await fetchRealStockData(selectedStock);
       const indicators = calculateAdvancedTechnicalIndicators(data);
+      if (!indicators) return; // もしくは fallback を入れる
       const mlResult = advancedMLPrediction(data, indicators);
       const newSignals = generateAdvancedSignals(data, indicators, mlResult);
       
