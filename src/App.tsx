@@ -69,7 +69,7 @@ const JapaneseGrowthStockAnalyzer = () => {
   }, []); */
 
   // Yahoo Finance APIから実際の株価データを取得
-  const fetchRealStockData = useCallback(async (stockCode) => {
+  const fetchRealStockData = useCallback(async (stockCode: string | number) => {
     try {
       // 東京証券取引所の銘柄には.Tを付加
       const symbol = `${stockCode}.T`;
