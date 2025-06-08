@@ -71,6 +71,12 @@ type RealTimePrice = {
   changePercent: number;
   volume: number;
 };
+
+type VolatilityInfo = {
+  dailyVol: string;
+  annualizedVol: string;
+  riskLevel: 'Very High' | 'High' | 'Medium' | string;
+};
 // 🔼 型定義ここまで
 
 const JapaneseGrowthStockAnalyzer = () => {
@@ -82,7 +88,7 @@ const JapaneseGrowthStockAnalyzer = () => {
   const [mlPrediction, setMlPrediction] = useState<MLResult | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [realTimePrice, setRealTimePrice] = useState<RealTimePrice | null>(null);
-  const [volatilityAnalysis, setVolatilityAnalysis] = useState({});
+  const [volatilityAnalysis, setVolatilityAnalysis] = useState<VolatilityInfo | null>(null);
 
   // 日本のグロース株銘柄
   const japaneseGrowthStocks = [
