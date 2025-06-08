@@ -239,7 +239,8 @@ const JapaneseGrowthStockAnalyzer = () => {
   }, []);
 
   // 高度なテクニカル指標計算
-  const calculateAdvancedTechnicalIndicators = useCallback((data: StockData[]): Record<string, string> => {
+//  const calculateAdvancedTechnicalIndicators = useCallback((data: StockData[]): Record<string, string> => {
+  const calculateAdvancedTechnicalIndicators = useCallback((data: StockData[]): TechnicalIndicators => {
     if (data.length < 50) return {};
 
     const prices = data.map(d => d.price);
