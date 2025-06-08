@@ -35,6 +35,17 @@ type Signal = {
   confidence: number;
   timestamp: string;
 };
+
+type FeatureVector = {
+  priceChange: number;
+  volatility: number;
+  rsiNorm: number;
+  macdSignal: number;
+  bollPosition: number;
+  volumeSignal: number;
+  momentum5: number;
+  momentum25: number;
+};
 // 🔼 型定義ここまで
 
 const JapaneseGrowthStockAnalyzer = () => {
@@ -217,7 +228,7 @@ const JapaneseGrowthStockAnalyzer = () => {
     const sma75 = prices.slice(-75).reduce((sum, p) => sum + p, 0) / 75;
 
     // 指数移動平均 (EMA)
-    const calculateEMA = (values, period) => {
+    const calculateEMA = (values: number[], period: number): number => {
       const k = 2 / (period + 1);
       let ema = values[0];
       for (let i = 1; i < values.length; i++) {
@@ -231,7 +242,7 @@ const JapaneseGrowthStockAnalyzer = () => {
     const macd = ema12 - ema26;
 
     // RSI計算（改良版）
-    const calculateRSI = (values, period = 14) => {
+    const calculateRSI = (values: number[], period = 14): number => {
       const gains = [];
       const losses = [];
       
@@ -250,7 +261,7 @@ const JapaneseGrowthStockAnalyzer = () => {
     const rsi = calculateRSI(prices.slice(-30));
 
     // ストキャスティクス
-    const calculateStochastic = (highs, lows, closes, period = 14) => {
+    const calculateStochastic = (highs: number[], lows: number[], closes: number[], period = 14) => {
       const recentHighs = highs.slice(-period);
       const recentLows = lows.slice(-period);
       const currentClose = closes[closes.length - 1];
@@ -268,7 +279,7 @@ const JapaneseGrowthStockAnalyzer = () => {
                       (Math.max(...highs.slice(-14)) - Math.min(...lows.slice(-14)))) * -100;
 
     // ATR (Average True Range)
-    const calculateATR = (highs, lows, closes, period = 14) => {
+    const calculateATR = (highs: number[], lows: number[], closes: number[], period = 14) => {
       const trueRanges = [];
       for (let i = 1; i < highs.length; i++) {
         const tr1 = highs[i] - lows[i];
@@ -321,12 +332,12 @@ const JapaneseGrowthStockAnalyzer = () => {
   }, []);
 
   // 高度な機械学習予測（アンサンブル手法）
-  const advancedMLPrediction = useCallback((data, indicators) => {
+  const advancedMLPrediction = useCallback((data: StockData[], indicators: Record<string, string>): MLResult => {
     const currentPrice = data[data.length - 1].price;
     const prices = data.map(d => d.price);
     
     // Feature Engineering
-    const features = {
+    const features: FeatureVector = {
       // Price-based features
       priceChange: (currentPrice - prices[prices.length - 2]) / prices[prices.length - 2],
       volatility: Math.sqrt(prices.slice(-20).reduce((sum, p, i, arr) => {
@@ -348,7 +359,7 @@ const JapaneseGrowthStockAnalyzer = () => {
     };
 
     // Neural Network simulation (simplified)
-    const neuralNetworkPredict = (features) => {
+    const neuralNetworkPredict = (features: FeatureVector): number => {
       let score = 0;
       
       // Input layer to hidden layer
@@ -363,7 +374,7 @@ const JapaneseGrowthStockAnalyzer = () => {
     };
 
     // Random Forest simulation
-    const randomForestPredict = (features) => {
+    const randomForestPredict = (features: FeatureVector): number => {
       let votes = 0;
       const trees = 5;
       
@@ -401,7 +412,7 @@ const JapaneseGrowthStockAnalyzer = () => {
     };
 
     // Gradient Boosting simulation
-    const gradientBoostingPredict = (features) => {
+    const gradientBoostingPredict = (features: FeatureVector): number => {
       let prediction = 0;
       const learningRate = 0.1;
       const iterations = 10;
