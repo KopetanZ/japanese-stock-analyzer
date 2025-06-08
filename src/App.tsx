@@ -144,7 +144,7 @@ const JapaneseGrowthStockAnalyzer = () => {
       const lows = prices.low;
       const closes = prices.close;
       
-      const data = timestamps.map((timestamp: number, i: number) => {
+      const data: StockData[] = timestamps.map((timestamp: number, i: number) => {
         const date = new Date(timestamp * 1000);
         const price = closes[i];
         const prevPrice = i > 0 ? closes[i - 1] : price;
@@ -158,7 +158,7 @@ const JapaneseGrowthStockAnalyzer = () => {
           open: opens[i] ? parseFloat(opens[i].toFixed(0)) : price,
           change: price && prevPrice ? price - prevPrice : 0
         };
-      }).filter(item => item.price > 0); // 無効なデータを除外
+      }).filter((item: StockData) => item.price > 0); // 無効なデータを除外
       
       return data;
       
